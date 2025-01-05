@@ -15,10 +15,8 @@
 //===========================================================================================================
 CParticle::CParticle() :
 	CBillboard{},
-	m_MaxSize{},
 	m_type{ TYPE::NONE },
-	m_nLife{ 30 },
-	m_nMaxLife{ m_nLife }
+	m_nLife{ 30 }
 {
 }
 
@@ -44,6 +42,12 @@ HRESULT CParticle::Init()
 
 	//カラー設定
 	SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
+
+	//サイズ最大値保存
+	m_MaxSize = GetSize();
+
+	//ライフ最大値保存
+	m_nMaxLife = m_nLife;
 
 	//基底クラス初期化処理
 	if (FAILED(CBillboard::Init())) return E_FAIL;

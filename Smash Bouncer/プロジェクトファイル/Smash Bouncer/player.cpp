@@ -542,9 +542,6 @@ void CPlayer::Reflect()
 			//SE再生
 			CManager::GetSound()->Play(CSound::SE_SMASH);
 
-			//カメラの揺れを設定
-			CManager::GetCamera()->SetShake(10, int(fDistance));
-
 			//バレットの生成位置設定
 			D3DXVECTOR3 BulletPos(pos.x, pos.y + GetSize().y * 0.5f, pos.z);
 
@@ -564,7 +561,7 @@ void CPlayer::Reflect()
 			}
 
 			//パーティクルサイズ
-			D3DXVECTOR3 ParticleSize(200.0f * fDistance, 200.0f * fDistance, 0.0f);
+			D3DXVECTOR3 ParticleSize(10.0f * fDistance, 10.0f * fDistance, 0.0f);
 
 			//パーティクル設定
 			for (int nCnt = 0; nCnt < 10; nCnt++)
@@ -572,10 +569,13 @@ void CPlayer::Reflect()
 				CBillboard::Create(CBillboard::BILLBOARD_PARTCLE, BulletPos, ParticleSize);
 			}
 			//威力に合わせて追加のパーティクル
-			for (int nCnt = 0; nCnt < static_cast<int>(10.0f * fDistance * 2); nCnt++)
+			for (int nCnt = 0; nCnt < static_cast<int>(10.0f * fDistance); nCnt++)
 			{
 				CBillboard::Create(CBillboard::BILLBOARD_PARTCLE, BulletPos, ParticleSize);
 			}
+
+			//カメラの揺れを設定
+			CManager::GetCamera()->SetShake(10, int(fDistance * 2.0f));
 		}
 	}
 
